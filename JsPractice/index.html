@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/JsPractice/style.css">
+    <style></style>
+</head>
+
+<body>
+    <!-- <h1>Javascript Practice</h1>
+    <h2>Dom Practice</h2>
+    <div>
+        <p>Add Tweet:</p>
+        <div style="display: flex; gap:10px">
+            <input id="username" type="text" placeholder="username">
+            <input id="tweet" type="text" placeholder="tweet">
+            <button id="submit-btn" type="submit">Submit</button>
+        </div>
+        <div class="tweets">
+            <p>Your Tweets:</p>
+        </div>
+    </div> -->
+    <div style="justify-content: center; align-items: center; display: flex; flex-direction: column;">
+        <h1>Player scores</h1>
+        <div style="display: flex;gap:20px">
+            <h1 id="player1-score">0</h1>
+            <p>to</p>
+            <h1 id="player2-score">0</h1>
+        </div>
+        <div class="selectList" style="display: flex; gap:10px;padding-bottom:20px" class="scale">
+            <p>playing to</p>
+            <select id="select">
+                <option value="0" disabled>0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+            </select>
+        </div>
+
+        <div style="display: flex; gap:20px" class="btn">
+            <button id="player1">+1 Player1</button>
+            <button id="player2">+1 Player2</button>
+            <button id="reset">reset</button>
+        </div>
+
+        <script src="/JsPractice/script.js"></script>
+    </div>
+</body>
+
+</html>
