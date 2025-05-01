@@ -31,14 +31,11 @@ mainContainer.addEventListener("click", function (e) {
     const btnId = e.target.getAttribute("dataId");
 
     const targetProduct = products[btnId - 1];
-    //getting other properties
-    // const productName = targetProduct.name;
-    // const productPrice = targetProduct.price;
-    // const productStock = targetProduct.stock;
 
     // or using destructring
     const { name, price, stock } = targetProduct;
 
+    let currentProductQuantity;
     const existingItem = cartProductArray.find((item) => item.id === btnId);
 
     if (!existingItem) {
@@ -46,8 +43,12 @@ mainContainer.addEventListener("click", function (e) {
       row.innerHTML = `
     <td class="Id">${btnId}</td>
     <td class="name">${name}</td>
+    <td>
+      <button class = "plus"> + </button>
+      <button class = "minus"> - </button>
+      <button class = "delete"> del </button>
+    </td>
     <td class="price">${price}</td>
-    <td class="stock">${stock}</td>
     <td class="quantity">1</td>
     `;
       row.classList.add(`${name}`);
@@ -60,15 +61,57 @@ mainContainer.addEventListener("click", function (e) {
         quantity: 1,
       });
 
-      console.log(cartProductArray);
+      // console.log(cartProductArray);
     } else {
       const selectedProduct = document.querySelector(`.${name}`);
-      const currentProductQuantity = parseInt(
+      currentProductQuantity = parseInt(
         selectedProduct.querySelector(".quantity").textContent
       );
-      const updatedProductQuantity = currentProductQuantity + 1;
+      const updatedProductQuantity = parseInt(currentProductQuantity + 1);
+      existingItem.quantity += 1;
       selectedProduct.querySelector(".quantity").textContent =
         updatedProductQuantity;
+      console.log(cartProductArray);
     }
+  }
+
+  //cart + - button
+  if (e.target.classList.contains("plus")) {
+    const row = e.target.closest("tr");
+    const id = row.querySelector(".Id").textContent;
+    const quantityCell = row.querySelector(".quantity");
+    const cartItem = cartProductArray.find((item) => item.id === id);
+    console.log(row);
+    if (cartItem) {
+      cartItem.quantity += 1;
+      quantityCell.textContent = cartItem.quantity;
+    }
+  } else if (e.target.classList.contains("minus")) {
+    const row = e.target.closest("tr");
+    const id = row.querySelector(".Id").textContent;
+    const quantityCell = row.querySelector(".quantity");
+    const cartItem = cartProductArray.find((item) => item.id === id);
+
+    if (cartItem) {
+      if (cartItem.quantity == 1) {
+        alert("quanity cannot be zero");
+      } else {
+        cartItem.quantity -= 1;
+        quantityCell.textContent = cartItem.quantity;
+      }
+    }
+  }
+
+  localStorage.setItem("cart", JSON.stringify(cartProductArray));
+
+  //calculate direclty from the object array
+  const sumTotal = cartProductArray.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
+
+  if (sumTotal) {
+    const totalTag = document.querySelector(".total");
+    totalTag.innerHTML = `Rs: ${sumTotal.toLocaleString()}`;
   }
 });
